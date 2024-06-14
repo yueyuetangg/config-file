@@ -18,6 +18,7 @@ import (
 	"github.com/cloudwego/kitex/pkg/circuitbreak"
 	"github.com/cloudwego/kitex/pkg/retry"
 	"github.com/cloudwego/kitex/pkg/rpctimeout"
+	degradation "github.com/kitex-contrib/config-file/pkg"
 )
 
 // ClientFileConfig is config of a client/service pair
@@ -25,6 +26,7 @@ type ClientFileConfig struct {
 	Timeout        map[string]*rpctimeout.RPCTimeout `mapstructure:"timeout"`        // key: method, "*" for default
 	Retry          map[string]*retry.Policy          `mapstructure:"retry"`          // key: method, "*" for default
 	Circuitbreaker map[string]*circuitbreak.CBConfig `mapstructure:"circuitbreaker"` // key: method
+	Degradation    *degradation.DegradationConfig    `mapstructure:"degradation"`
 }
 
 // ClientFileManager is a map of client/service pairs to ClientFileConfig

@@ -41,6 +41,10 @@
                     }
                 }
             }
+        },
+        "degradation": {
+            "enabled": true,
+            "percentage": 0
         }
     }
 }

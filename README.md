@@ -316,7 +316,24 @@ Example：
     }
 }
 ```
+##### Degradation: Category=degradation
 
+[JSON Schema](https://github.com/cloudwego/kitex/blob/develop/pkg/#L30)
+
+|Variable|Introduction|
+|------------|----|
+| percentage | The percentage of dropped requests| 
+
+Example：
+default configuration(false,0)
+```json
+{
+   "degradation": {
+            "enabled": true,
+            "percentage": 0
+        }
+}
+```
 Note: The circuit breaker implementation of kitex does not currently support changing the global default configuration (see [initServiceCB](https://github.com/cloudwego/kitex/blob/v0.5.1/pkg/circuitbreak/cbsuite.go#L195) for details).
 ### More Info
 
@@ -374,6 +391,10 @@ For client configuration, you should write all their configurations in the same 
                     }
                 }
             }
+        },
+        "degradation": {
+            "enabled": true,
+            "percentage": 0
         }
     }
 }

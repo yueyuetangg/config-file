@@ -48,6 +48,7 @@ func (s *FileConfigClientSuite) Options() []kitexclient.Option {
 	opts = append(opts, WithRetryPolicy(s.watcher)...)
 	opts = append(opts, WithCircuitBreaker(s.service, s.watcher)...)
 	opts = append(opts, WithRPCTimeout(s.watcher)...)
+	opts = append(opts, WithDegradation(s.watcher)...)
 	opts = append(opts, kitexclient.WithCloseCallbacks(func() error {
 		s.watcher.Stop()
 		return nil

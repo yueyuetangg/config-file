@@ -315,6 +315,25 @@ echo 方法使用下面的配置（0.3、100），其他方法使用全局默认
 }
 ```
 注：kitex 的熔断实现目前不支持修改全局默认配置（详见 [initServiceCB](https://github.com/cloudwego/kitex/blob/v0.5.1/pkg/circuitbreak/cbsuite.go#L195)）
+
+##### 降级: Category=degradation
+
+[JSON Schema](https://github.com/cloudwego/kitex/blob/develop/pkg/#L30)
+
+|参数|说明|
+|----|----|
+| percentage | 丢弃比例 | 
+
+样例：
+默认配置(false,0)
+```json
+{
+   "degradation": {
+            "enabled": true,
+            "percentage": 0
+        }
+}
+```
 ### 更多信息
 
 更多示例请参考 [example](https://github.com/kitex-contrib/config-file/tree/main/example)
@@ -374,6 +393,10 @@ echo 方法使用下面的配置（0.3、100），其他方法使用全局默认
                     }
                 }
             }
+        },
+        "degradation": {
+            "enabled": true,
+            "percentage": 0
         }
     }
 }
