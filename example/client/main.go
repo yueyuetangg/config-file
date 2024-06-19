@@ -85,6 +85,6 @@ func main() {
 		} else {
 			klog.Infof("receive response %v", resp)
 		}
-		time.Sleep(time.Second * 10)
+		time.Sleep(time.Second * 1)
 	}
 }

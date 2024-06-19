@@ -17,6 +17,7 @@ package degradation
 import (
 	"context"
 	"errors"
+	"github.com/cloudwego/kitex/pkg/klog"
 	"sync/atomic"
 
 	"github.com/bytedance/gopkg/lang/fastrand"
@@ -47,7 +48,13 @@ func (c *DegradationConfig) DeepCopy() iface.ConfigValueItem {
 
 // EqualsTo returns true if the current Config equals to the other Config
 func (c *DegradationConfig) EqualsTo(other iface.ConfigValueItem) bool {
-	o := other.(*DegradationConfig)
+	o, ok := other.(*DegradationConfig)
+	if !ok {
+		return false
+	}
+	if c == nil {
+		return o == nil
+	}
 	return c.Enable == o.Enable && c.Percentage == o.Percentage
 }
 
@@ -63,13 +70,20 @@ func NewContainer() *Container {
 }
 
 // NotifyPolicyChange to receive policy when it changes
-func (c *Container) NotifyPolicyChange(cfg *DegradationConfig) {
-	c.config.Store(cfg)
+func (c *Container) NotifyPolicyChange(cfg map[string]*DegradationConfig) {
+	for _, value := range cfg {
+		newConfig := &DegradationConfig{
+			Enable:     value.Enable,
+			Percentage: value.Percentage,
+		}
+		c.config.Store(newConfig)
+	}
 }
 
 func (c *Container) GetAclRule() acl.RejectFunc {
 	return func(ctx context.Context, request interface{}) (reason error) {
 		cfg := c.config.Load().(*DegradationConfig)
+		klog.Warnf(" %v ", cfg)
 		if !cfg.Enable {
 			return nil
 		}

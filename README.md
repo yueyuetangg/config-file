@@ -330,7 +330,7 @@ default configuration(false,0)
 {
    "degradation": {
             "enabled": true,
-            "percentage": 0
+            "percentage": 30
         }
 }
 ```
@@ -394,7 +394,7 @@ For client configuration, you should write all their configurations in the same 
         },
         "degradation": {
             "enabled": true,
-            "percentage": 0
+            "percentage": 30
         }
     }
 }
