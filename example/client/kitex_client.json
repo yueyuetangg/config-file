@@ -44,7 +44,7 @@
         },
         "degradation": {
             "enabled": true,
-            "percentage": 30
+            "percentage": 0
         }
     }
 }

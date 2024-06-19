@@ -31,16 +31,10 @@ func invoke(ctx context.Context, request, response interface{}) error {
 
 func TestNewContainer(t *testing.T) {
 	container := NewContainer()
-	cfg1 := map[string]*DegradationConfig{
-		"someMethod": {Enable: false, Percentage: 100}, // Example method and config
-	}
-	cfg2 := map[string]*DegradationConfig{
-		"someMethod": {Enable: true, Percentage: 100}, // Example method and config
-	}
 	aclMiddleware := acl.NewACLMiddleware([]acl.RejectFunc{container.GetAclRule()})
 	test.Assert(t, errors.Is(aclMiddleware(invoke)(context.Background(), nil, nil), errFake))
-	container.NotifyPolicyChange(cfg1)
+	container.NotifyPolicyChange(&DegradationConfig{Enable: false, Percentage: 100})
 	test.Assert(t, errors.Is(aclMiddleware(invoke)(context.Background(), nil, nil), errFake))
-	container.NotifyPolicyChange(cfg2)
+	container.NotifyPolicyChange(&DegradationConfig{Enable: true, Percentage: 100})
 	test.Assert(t, errors.Is(aclMiddleware(invoke)(context.Background(), nil, nil), errRejected))
 }
