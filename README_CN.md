@@ -330,7 +330,7 @@ echo 方法使用下面的配置（0.3、100），其他方法使用全局默认
 {
    "degradation": {
             "enabled": true,
-            "percentage": 0
+            "percentage": 30
         }
 }
 ```
@@ -396,7 +396,7 @@ echo 方法使用下面的配置（0.3、100），其他方法使用全局默认
         },
         "degradation": {
             "enabled": true,
-            "percentage": 0
+            "percentage": 30
         }
     }
 }
